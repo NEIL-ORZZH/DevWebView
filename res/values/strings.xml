@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">DevWebView</string>
+  <string name="button_ok">确定</string>
+  <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
+</resources>

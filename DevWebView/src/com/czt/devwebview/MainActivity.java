@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
@@ -18,6 +19,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.czt.zxing.CaptureActivity;
 
@@ -77,6 +80,13 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
+		mUrlView.setOnEditorActionListener(new OnEditorActionListener() {  
+	        @Override  
+	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {  
+	        	loadUrl();
+	            return true;  
+	        }  
+	    });
 		WebSettings webSettings = mWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		mWebView.setWebViewClient(new WebViewClient(){
@@ -109,14 +119,7 @@ public class MainActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						CharSequence url = mUrlView.getText();
-						if (!TextUtils.isEmpty(url)) {
-							mCurrentUrl = url.toString();
-							if(!mCurrentUrl.contains("http://")){
-								mCurrentUrl = "http://" + mCurrentUrl;
-							}
-							mWebView.loadUrl(mCurrentUrl);
-						}
+						loadUrl();
 					}
 				});
 		mQRCodeScanner.setOnClickListener(new OnClickListener() {
@@ -143,6 +146,18 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	private void loadUrl() {
+		CharSequence url = mUrlView.getText();
+		if (!TextUtils.isEmpty(url)) {
+			mCurrentUrl = url.toString();
+			if(!mCurrentUrl.contains("http://")){
+				mCurrentUrl = "http://" + mCurrentUrl;
+			}
+			mWebView.loadUrl(mCurrentUrl);
+		}
+	}
+	
 	private EditText mUrlView;
 	private WebView mWebView;
 	private View mClearView;

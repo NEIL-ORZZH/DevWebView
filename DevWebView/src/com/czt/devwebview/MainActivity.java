@@ -77,6 +77,8 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
+		WebSettings webSettings = mWebView.getSettings();
+		webSettings.setJavaScriptEnabled(true);
 		mWebView.setWebViewClient(new WebViewClient(){
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -102,8 +104,6 @@ public class MainActivity extends Activity {
 				mConsoleLog.setText(mLog.toString());
 			}
 		});
-		WebSettings webSettings = mWebView.getSettings();
-		webSettings.setJavaScriptEnabled(true);
 		mForwardView.setOnClickListener(
 				new OnClickListener() {
 
